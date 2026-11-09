@@ -1,18 +1,28 @@
-
 def next_birthday(date, birthdays):
-    '''
-    Find the next birthday after the given date.
+    if not birthdays:
+        return (1, 1), []
 
-    @param:
-    date - a tuple of two integers specifying (month, day)
-    birthdays - a dict mapping from date tuples to lists of names, for example,
-      birthdays[(1,10)] = list of all people with birthdays on January 10.
+    sorted_dates = sorted(birthdays.keys())
 
-    @return:
-    birthday - the next day, after given date, on which somebody has a birthday
-    list_of_names - list of all people with birthdays on that date
-    '''
-    birthday = (1,1)
-    list_of_names = []
-    return birthday, list_of_names
-    
+    for bday in sorted_dates:
+        if bday > date:
+            return bday, birthdays[bday]
+
+    next_date = sorted_dates[0]
+    return next_date, birthdays[next_date]
+
+
+if __name__ == "__main__":
+    sample_birthdays = {
+        (5, 15): ["Hari", "Sita"],
+        (10, 20): ["Gopal"],
+        (1, 10): ["Ram"]
+    }
+
+    current_date_1 = (5, 12)
+    bday_1, names_1 = next_birthday(current_date_1, sample_birthdays)
+    print(f"Current Date: {current_date_1} -> Next Birthday: {bday_1} (Names: {names_1})")
+
+    current_date_2 = (11, 5)
+    bday_2, names_2 = next_birthday(current_date_2, sample_birthdays)
+    print(f"Current Date: {current_date_2} -> Next Birthday: {bday_2} (Names: {names_2})")
